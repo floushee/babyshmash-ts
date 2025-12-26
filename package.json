@@ -1,0 +1,19 @@
+{
+  "name": "babyshmash-ts",
+  "version": "0.1.0",
+  "description": "Electron + TypeScript reimagining of BabySmash with simple SVG shapes and sounds.",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:renderer": "tsc -p tsconfig.renderer.json && cp src/renderer/style.css dist/renderer/ && cp index.html dist/renderer/",
+    "build": "npm run build:main && npm run build:renderer",
+    "start": "npm run build && electron dist/main/main.js",
+    "serve": "npx http-server dist/renderer/ -p 8080",
+    "lint": "tsc --noEmit -p tsconfig.main.json && tsc --noEmit -p tsconfig.renderer.json"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "electron": "^30.0.9",
+    "typescript": "^5.6.3"
+  }
+}
