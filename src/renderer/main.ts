@@ -1,20 +1,22 @@
 import { playBeep } from './sound.js';
 import { randomShape } from './shapes.js';
+import { randomAnimal } from './animals.js';
 
 const canvas = document.getElementById('canvas') as HTMLDivElement | null;
 const hint = document.getElementById('hint');
 
 const spawnShape = (trigger: string) => {
   if (!canvas) return;
-  const shape = randomShape(trigger);
-  canvas.appendChild(shape);
+  // Randomly choose between shape and animal (50/50)
+  const element = Math.random() > 0.5 ? randomAnimal() : randomShape(trigger);
+  canvas.appendChild(element);
 
-  shape.addEventListener('animationend', () => {
-    shape.remove();
+  element.addEventListener('animationend', () => {
+    element.remove();
   });
 
   // Fallback cleanup in case the animation is interrupted.
-  window.setTimeout(() => shape.remove(), 4000);
+  window.setTimeout(() => element.remove(), 4000);
 };
 
 const handleInteraction = (label: string) => {
